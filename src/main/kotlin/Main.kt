@@ -44,8 +44,8 @@ object MetroMap{
         addConnection("Арбатская-3", "Александровский Сад-4",2)
         //init the connections on the lines
         //3
-        addConnection("Парк Победы-3","Киевская-4",5)
-        addConnection("Киевская-3","Смоленской-3",2)
+        addConnection("Парк Победы-3","Киевская-3",5)
+        addConnection("Киевская-3","Смоленская-3",2)
         addConnection("Смоленская-3","Арбатская-3",2)
         addConnection("Арбатская-3","Площадь Революции-3",2)
         //4
@@ -65,10 +65,15 @@ object MetroMap{
             stations[from] = fromStation.copy(connections = fromStation.connections + Connections(toStation,travelTime))
             stations[to] = toStation.copy(connections = toStation.connections + Connections(fromStation,travelTime))
         }
+
+
     }
     fun getStation(name: String): Station? =stations[name]
     fun getAllStations(): List<Station> = stations.values.toList()
 }
 fun main() {
-
+    val startStation = MetroMap.getStation("Кутузовская-4")!!
+    val goalStation = MetroMap.getStation("Студенческая-4")!!
+    val path = aStarPathfinding(startStation, goalStation)
+    path.forEach { println(it.name) }
 }
